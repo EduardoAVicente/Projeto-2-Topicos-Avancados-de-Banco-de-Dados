@@ -7,6 +7,6 @@ Usando a base de dados de exemplo do livro, escolha um dos bancos NoSQL visto em
 Codigos das Querys
 
 
-[Clique aqui para ver as Query]([https://www.google.com](https://github.com/EduardoAVicente/Projeto-2-Topicos-Avancados-de-Banco-de-Dados/wiki)
-)
+[Clique aqui para ver as Query](https://github.com/EduardoAVicente/Projeto-2-Topicos-Avancados-de-Banco-de-Dados/wiki)
+
 
