@@ -1,1 +1,11 @@
-  
+--1. Escreva uma query que retorna qual estudante fez qual disciplina do próprio orientador. Retorne apenas o nome doestudante, do professor e da disciplina.
+
+db.student.aggregate([ { $lookup: { from: "advisor", localField: "id", foreignField: "s_id", as: "advisor_info" } }, { $unwind: "$advisor_info" }, { $lookup: { from: "instructor", localField: "advisor_info.i_id", foreignField: "id", as: "instructor_info" } }, { $unwind: "$instructor_info" }, { $lookup: { from: "takes", localField: "id", foreignField: "id", as: "takes_info" } }, { $unwind: "$takes_info" }, { $lookup: { from: "course", localField: "takes_info.course_id", foreignField: "course_id", as: "course_info" } }, { $unwind: "$course_info" }, { $project: { _id: 0, estudante: "$name", orientador: "$instructor_info.name", disciplina: "$course_info.title" } } ]) 
+
+--2. Qual sala (prédio e número) cada professor dá aula?
+
+db.section.aggregate([ { $lookup: { from: "teaches", localField: "course_id", foreignField: "course_id", as: "teaches" } }, { $unwind: "$teaches" }, { $lookup: { from: "instructor", localField: "teaches.id", foreignField: "id", as: "instructor" } }, { $unwind: "$instructor" }, { $project: { predio: "$building", numero: "$room_number", professor: "$instructor.name", _id: 0 } } ]) 
+
+--3. Qual o nome, orçamento, total de alunos e salário médio de cada departamento?
+
+db.department.aggregate([ { $lookup: { from: "instructor", localField: "dept_name", foreignField: "dept_name", as: "instructors" } }, { $lookup: { from: "student", localField: "dept_name", foreignField: "dept_name", as: "students" } }, { $unwind: "$instructors" }, { $group: { _id: "$dept_name", nome: { $first: "$dept_name" }, orcamento: { $first: "$budget" }, total_alunos: { $sum: { $size: "$students" } }, salario_total: { $sum: "$instructors.salary" }, num_instrutores: { $sum: 1 } } }, { $project: { _id: 0, nome: 1, orcamento: 1, total_alunos: 1, salario_medio: { $divide: ["$salario_total", "$num_instrutores"] } } } ]) 
