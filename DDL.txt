@@ -1,0 +1,14 @@
+use projeto
+
+db.createCollection("prereq")
+db.createCollection("time_slot")
+db.createCollection("advisor")
+db.createCollection("takes")
+db.createCollection("student")
+db.createCollection("teaches")
+db.createCollection("section")
+db.createCollection("instructor")
+db.createCollection("course")
+db.createCollection("department")
+db.createCollection("classroom")
+
