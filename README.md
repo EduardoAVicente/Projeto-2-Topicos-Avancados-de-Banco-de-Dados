@@ -5,7 +5,7 @@ Alunos:
 
 Eduardo Antunes Vicente
 
-Ana Jessica da Silva Soares
+Ana Jéssica Soares da Silva
 
 Felipe de Campos Oka
 
